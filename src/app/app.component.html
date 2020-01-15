@@ -1,0 +1,82 @@
+<a routerLink=""> Home </a> &nbsp;
+<a routerLink="dashboard"> Dashboard </a> &nbsp;
+<a routerLink="servicing"> Servicing </a> &nbsp;
+
+
+<router-outlet> </router-outlet>
+
+{{ name }}
+<form #form1="ngForm">
+
+	name :
+	<input type="text"
+  name="company"
+  #ctrl1="ngModel"
+  [(ngModel)]="formObj.company"
+  required
+  minlength="4"
+  (focus)="onFocus()"
+  appBlockCutCopyPaste
+  appBlockSpecialCharacters>
+
+	<ul>
+		<li *ngFor="let i of names | filterArray: formObj.company"> {{i}} </li>
+	</ul>
+
+	user :
+	<input type="text"
+  name="user"
+  #ctrl2="ngModel"
+  [(ngModel)]="formObj.user"
+  required
+  minlength="4"
+  (focus)="onFocus()">
+
+
+
+	<ul>
+		<li *ngFor="let i of users | filterObj: formObj.user "> {{i.name +" is "+ i.age+ " year old." }} </li>
+	</ul>
+
+	<div *ngIf="ctrl1.invalid && (ctrl1.dirty || ctrl1.touched )">
+
+		<p *ngIf="ctrl1.errors.required && checkValidation"> this is mandatory </p>
+
+		<p *ngIf="ctrl1.errors.minlength && checkValidation"> minimum 4 </p>
+
+	</div>
+	<br>
+	<br>
+	<button (click)="validate()"> validate </button>
+</form>
+
+<br>
+checkValiation: {{ checkValidation }}
+<hr>
+
+
+Pipes
+<p> the company value is {{ formObj.company | uppercase }} </p>
+
+<b>{{ 454.78787814 | number: '3.5' }}</b>
+
+<p>{{ date | date: 'dd/MM/y' }}</p>
+<p> {{ months | slice:2:6}}
+	<pre>
+
+
+
+  control errors : 
+   {{ ctrl1.errors | json }}
+
+
+form values:
+   {{ form1.value | json }}
+
+   isValid : {{ form1.valid }}
+
+ </pre>
+
+	<pre>
+	{{ customers | json }}
+ </pre>
